@@ -2,11 +2,12 @@ const DecorationModel = require("../../db/models/DecorationModel")
 
 const getdecoration = async (req , res)=>{
   try {
-      // const allDecorations = await DecorationModel.find({});
-      const allDecorations = [{name: 'skldfj', price: 23}, {name: 'skldfj', price: 23}]
+      
+      // const allDecorations = [{name: 'amirah', price: 23 , description:'aaa' ,img:'url'}]
+      const allDecorations = await DecorationModel.find({});
       res.status(200).json(allDecorations)
   } catch (error) {
-      
+    res.send(error);  
   }
  
 }
@@ -22,28 +23,6 @@ const postdecoration = async (req, res) => {
     res.send(error);
   }
 };
-const deletdecoration = async (req,res)=>{
-  const id = req.params.id;
-  const user = req.token.userId;
-  console.log(user);
-  try {
-    const delet = await DecorationModel.findByIdAndDelete({ _id:id ,user :user});
-    res.status(201).json (delet)
-  } catch (error) {
-   res.send("error")
-  }
-};
-const deleteAlldecoration = async (req , res)=>{
-           
-  try {
-     const deletej = await DecorationModel.remove()
-     const cour = await DecorationModel.find({})
-     res.status(200).json(cour)
- } catch (error) {
-     res.status(403).json(error)
- }
- }
 
 
-
-module.exports = {getdecoration, postdecoration ,deletdecoration , deleteAlldecoration}
+module.exports = {getdecoration, postdecoration }

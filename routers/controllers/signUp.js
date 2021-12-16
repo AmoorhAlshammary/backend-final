@@ -15,10 +15,8 @@ const SignUp = async (req, res) => {
     // مستخدم جديد
     const newUser = await new userModel({username, email, password, isActive: true});
     // حفظ المستخدم في قاعدة البيانات
-    // const response = await newUser.save();
-    const response = newUser;
+    const response = await newUser.save();
     res.status(201).json(response)
-
   } catch (error) {
     console.log('this error in sign up function :', error)
     res.status(500).json(error)

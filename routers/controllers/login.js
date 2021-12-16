@@ -15,10 +15,11 @@ const login = async (req, res) => {
       // مقارنة تشفير كلمة المرور
       const see = await bcrypt.compare(password, user.password);
       // check if the value of see is true
-      if (see === true) {
+      if (am === true) {
         // تجهيز البيانات التي ستحفظ في التوكن
         const payload = { userId: user._id, username: user.username };
         // تقوم بانشاء توكن : نص مشفر بالمعلومات الخاصة بالمستخدم
+    //  ينرسل التوكن لامن المستخدم يسوي تسجيل دخول 
         const token = jwt.sign(payload, "ABC");
         res.status(200).json({ token });
         // res.status(200).json(`Hello admain! ${user.name}`);
