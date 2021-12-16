@@ -1,8 +1,10 @@
-const express = require("express");
-const signUpRoute = express.Router();
+const express = require ("express")
+const signupRoute = express.Router()
 
-const { addUser } = require("../controllers/signUp");
+const {SignUp} = require("../controllers/SignUp")
 
-signUpRoute.post("/signUp", addUser);
 
-module.exports = signUpRoute;
+signupRoute.post("/signup",SignUp)
+
+
+module.exports = signupRoute 
