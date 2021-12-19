@@ -1,10 +1,12 @@
 const DecorationModel = require("../../db/models/DecorationModel")
 
-const getdecoration = async (req , res)=>{
+const getDecoration = async (req , res)=>{
+  
   try {
       
       // const allDecorations = [{name: 'amirah', price: 23 , description:'aaa' ,img:'url'}]
       const allDecorations = await DecorationModel.find({});
+      // console.log(allDecorations)
       res.status(200).json(allDecorations)
   } catch (error) {
     res.send(error);  
@@ -12,11 +14,13 @@ const getdecoration = async (req , res)=>{
  
 }
 
-const postdecoration = async (req, res) => {
+const addDecoration = async (req, res) => {
   const { name, description, img , price} = req.body;
-   const user = req.token.userId;
-   const newDecoration = new DecorationModel({ name, description, img, user ,price});
+  // اوبجيكت جديد بناءا على المودل
+  // محفوظ في ذاكرة السيرفر
+   const newDecoration = new DecorationModel({ name, description, img ,price});
   try {
+    // يتم الحفظ في قاعدة البيانات
    const response= await newDecoration.save();
     res.status(201).json(response);
   } catch (error) {
@@ -24,5 +28,26 @@ const postdecoration = async (req, res) => {
   }
 };
 
+const updateDecoration = async (req, res) => {
+  const { id, name, description, img , price} = req.body;
+  try {
+    const response = await DecorationModel.findByIdAndUpdate(id,{name, description, img, price},{new:true})
+    res.status(201).json(response);
+  } catch (error) {
+    res.send(error);
+  }
+};
 
-module.exports = {getdecoration, postdecoration }
+const deleteDecoration = async (req, res)=>{
+  const {id} = req.params;
+  try {
+    const response = await DecorationModel.findByIdAndDelete(id);
+    res.status(201).json(response)
+  } catch (error) {
+    console.log(error)
+    res.send(error);
+  }
+}
+
+
+module.exports = {getDecoration, addDecoration, updateDecoration, deleteDecoration }

@@ -13,8 +13,8 @@ const login = async (req, res) => {
     // console.log(user);
     if (user) { 
       // مقارنة تشفير كلمة المرور
-      const see = await bcrypt.compare(password, user.password);
-      // check if the value of see is true
+      const am = await bcrypt.compare(password, user.password);
+      // check if the value of am is true
       if (am === true) {
         // تجهيز البيانات التي ستحفظ في التوكن
         const payload = { userId: user._id, username: user.username };
@@ -22,7 +22,6 @@ const login = async (req, res) => {
     //  ينرسل التوكن لامن المستخدم يسوي تسجيل دخول 
         const token = jwt.sign(payload, "ABC");
         res.status(200).json({ token });
-        // res.status(200).json(`Hello admain! ${user.name}`);
       } else {// if password doesn't match
         res.status(403).json("wrong PassWord!");
       }
