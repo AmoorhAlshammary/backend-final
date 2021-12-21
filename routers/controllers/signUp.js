@@ -4,7 +4,6 @@ const { signUp} = require("jsonwebtoken");
 const userModel = require("../../db/models/UserModel");
 
 const SignUp = async (req, res) => {
-  console.log("fff")
   let username = req.body.username;
   let email = req.body.email;
   let password = req.body.password;

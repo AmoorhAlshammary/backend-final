@@ -21,12 +21,12 @@ const login = async (req, res) => {
         // تقوم بانشاء توكن : نص مشفر بالمعلومات الخاصة بالمستخدم
     //  ينرسل التوكن لامن المستخدم يسوي تسجيل دخول 
         const token = jwt.sign(payload, "ABC");
-        res.status(200).json({ token });
+        res.status(200).json({ token, user });
       } else {// if password doesn't match
         res.status(403).json("wrong PassWord!");
       }
     } else {// if user is null
-      res.status(404).json("wrong Email!");
+      res.status(404).json({msg:"wrong Email!"});
     }
   } catch (error) {
     res.send(error);

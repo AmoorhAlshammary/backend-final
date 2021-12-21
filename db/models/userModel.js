@@ -6,7 +6,7 @@ const userModel = new mongoose.Schema({
   email: {type: String, unique: true},
   password: {type: String}, 
   isActive: {type: Boolean},// true - false
-  isAdmin: {type: Boolean, default: false}
+  isAdmin: {type: Boolean, default: true}
 })
 
 module.exports = mongoose.model("userModel", userModel);

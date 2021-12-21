@@ -8,10 +8,12 @@ app.use(cors());
 
 
 const DecorationRoute = require("./routers/routes/DecorationRoute")
+const ReservationRoute = require("./routers/routes/ReservationRoute")
 const SignUpRoute = require("./routers/routes/SignUpRoute")
 const LoginRoute  = require("./routers/routes/LoginRoute")
 //const ReservationRoute = require("./routers/routes/ReservationRoute")
 app.use(DecorationRoute)
+app.use(ReservationRoute)
 app.use(SignUpRoute)
 app.use(LoginRoute)
 // app.use(ReservationRoute)
