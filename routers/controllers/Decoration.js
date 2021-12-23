@@ -14,6 +14,17 @@ const getDecoration = async (req , res)=>{
  
 }
 
+const getOneDecoration = async (req, res)=>{
+  // console.log(req.params.id)
+  try{
+    const oneDecoration = await DecorationModel.findById(req.params.id);
+    // console.log(oneDecoration)
+    res.status(200).json(oneDecoration)
+  }catch(error){
+    res.send(error);
+  }
+}
+
 const addDecoration = async (req, res) => {
   const { name, description, img , price} = req.body;
   // اوبجيكت جديد بناءا على المودل
@@ -50,4 +61,4 @@ const deleteDecoration = async (req, res)=>{
 }
 
 
-module.exports = {getDecoration, addDecoration, updateDecoration, deleteDecoration }
+module.exports = {getDecoration, getOneDecoration, addDecoration, updateDecoration, deleteDecoration }
