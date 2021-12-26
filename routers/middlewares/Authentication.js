@@ -10,8 +10,9 @@ const authentication = (req, res, next) => {
     // console.log(token)
     // يفك تشفير التوكن ويتأكد ان التوكن صحيح
     // التوكن الخاطئ رح يطلع خطأ
-    const valid = jwt.verify(token, "ABC");
-    req.token = valid;
+    const user = jwt.verify(token, "ABC");
+    req.user = user;
+    // console.log(userData);
     next();
   } catch (error) {
     console.log(error)

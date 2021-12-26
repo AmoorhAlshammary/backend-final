@@ -1,4 +1,10 @@
+
+
+
 const DecorationModel = require("../../db/models/DecorationModel")
+const ReservationModel = require('../../db/models/ReservationModel');
+
+
 
 const getDecoration = async (req , res)=>{
   
@@ -14,15 +20,23 @@ const getDecoration = async (req , res)=>{
  
 }
 
-const getOneDecoration = async (req, res)=>{
-  // console.log(req.params.id)
-  try{
-    const oneDecoration = await DecorationModel.findById(req.params.id);
-    // console.log(oneDecoration)
-    res.status(200).json(oneDecoration)
-  }catch(error){
-    res.send(error);
+const getOneDecoration = async (req , res)=>{
+    // console.log(req.params.id)
+    // console.log(req.user)
+  try {
+    // find the reservations of that user
+    const reservations = await ReservationModel.find({user: req.user.userId});
+      // const oneDecoration = {name: 'amirah', price: 23 , description:'aaa' ,img:'url'}
+      const oneDecoration = await DecorationModel.findById(req.params.id);
+      if(!oneDecoration){
+        return res.status(403).json({error: 'not found decoration'})
+      }
+      // console.log(oneDecoration)
+      res.status(200).json({oneDecoration, reservations})
+  } catch (error) {
+    res.send(error);  
   }
+ 
 }
 
 const addDecoration = async (req, res) => {
@@ -52,6 +66,8 @@ const updateDecoration = async (req, res) => {
 const deleteDecoration = async (req, res)=>{
   const {id} = req.params;
   try {
+    // delete all reservations 
+    await ReservationModel.deleteMany({decoration:id});
     const response = await DecorationModel.findByIdAndDelete(id);
     res.status(201).json(response)
   } catch (error) {
@@ -61,4 +77,4 @@ const deleteDecoration = async (req, res)=>{
 }
 
 
-module.exports = {getDecoration, getOneDecoration, addDecoration, updateDecoration, deleteDecoration }
+module.exports = {getDecoration,getOneDecoration, addDecoration, updateDecoration, deleteDecoration }
