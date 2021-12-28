@@ -21,7 +21,8 @@ UserModel.findOne({username: 'admin'}, (err, doc)=>{
                 return;
             }
     
-            UserModel.create({username: 'admin', email:'admin@admin.com', password, isAdmin: true, isActive: true}, (err, newDoc)=>{
+            UserModel.create({username: 'admin', email:'admin@admin.com', password, isAdmin: true, isActive: true}, 
+            (err)=>{ 
                 if(err){
                     console.log(err)
                     return;
@@ -48,4 +49,4 @@ app.use(LoginRoute)
 const Port = 5000;
 app.listen(Port,()=>{
     console.log("server is running"+Port);
-});
+})

@@ -17,7 +17,7 @@ const login = async (req, res) => {
       // check if the value of passwordValid is true
       if (passwordValid === true) {
         // تجهيز البيانات التي ستحفظ في التوكن
-        const payload = { userId: user._id, username: user.username };
+        const payload = { userId: user._id, username: user.username, isAdmin: user.isAdmin};
         // تقوم بانشاء توكن : نص مشفر بالمعلومات الخاصة بالمستخدم
     //  ينرسل التوكن لامن المستخدم يسوي تسجيل دخول 
         const token = jwt.sign(payload, "ABC");

@@ -25,12 +25,9 @@ const getOneDecoration = async (req , res)=>{
     // console.log(req.user)
   try {
     // find the reservations of that user
-    const reservations = await ReservationModel.find({user: req.user.userId});
+      const reservations = await ReservationModel.find({user: req.user.userId});
       // const oneDecoration = {name: 'amirah', price: 23 , description:'aaa' ,img:'url'}
       const oneDecoration = await DecorationModel.findById(req.params.id);
-      if(!oneDecoration){
-        return res.status(403).json({error: 'not found decoration'})
-      }
       // console.log(oneDecoration)
       res.status(200).json({oneDecoration, reservations})
   } catch (error) {
@@ -41,6 +38,10 @@ const getOneDecoration = async (req , res)=>{
 
 const addDecoration = async (req, res) => {
   const { name, description, img , price} = req.body;
+  const {user} = req;
+  if(user.isAdmin === false){
+    return res.status(403).send('Not Authorized');
+  }
   // اوبجيكت جديد بناءا على المودل
   // محفوظ في ذاكرة السيرفر
    const newDecoration = new DecorationModel({ name, description, img ,price});
@@ -55,6 +56,11 @@ const addDecoration = async (req, res) => {
 
 const updateDecoration = async (req, res) => {
   const { id, name, description, img , price} = req.body;
+  const {user} = req;
+  // console.log(user)
+  if(user.isAdmin === false){
+    return res.status(403).send('Not Authorized');
+  }
   try {
     const response = await DecorationModel.findByIdAndUpdate(id,{name, description, img, price},{new:true})
     res.status(201).json(response);
@@ -65,9 +71,11 @@ const updateDecoration = async (req, res) => {
 
 const deleteDecoration = async (req, res)=>{
   const {id} = req.params;
+  const {user} = req;
+  if(user.isAdmin === false){
+    return res.status(403).send('Not Authorized');
+  }
   try {
-    // delete all reservations 
-    await ReservationModel.deleteMany({decoration:id});
     const response = await DecorationModel.findByIdAndDelete(id);
     res.status(201).json(response)
   } catch (error) {
