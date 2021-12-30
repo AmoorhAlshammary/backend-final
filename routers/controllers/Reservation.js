@@ -1,13 +1,8 @@
 const ReservationModel = require("../../db/models/ReservationModel")
-const UserModel = require('../../db/models/UserModel')
-const DecorationModel = require('../../db/models/DecorationModel')
 
 
 const getReservation = async (req , res)=>{
-  const {user} = req;
-  if(user.isAdmin === false){
-    return res.status(403).send('Not Authorized');
-  }
+
   try {
       
       const allReservations = await ReservationModel.find({}).populate(['user', 'decoration']);
@@ -23,8 +18,7 @@ const getUserReservation = async (req , res)=>{
   const {userId} = req.params;
   // console.log(userId)
   try {
-      const foundUser = await UserModel.findById(userId);
-      const allReservations = await ReservationModel.find({user:foundUser.id}).populate(['user', 'decoration']);
+      const allReservations = await ReservationModel.find({user:userId}).populate(['user', 'decoration']);
       // console.log(allReservations)
       res.status(200).json(allReservations)
   } catch (error) {
@@ -37,11 +31,7 @@ const addReservation = async (req, res) => {
   const {decorationId, userId, date} = req.body;
   // console.log(req.body)
   try {
-    const foundUser = await UserModel.findById(userId);
-    const foundDecoration = await DecorationModel.findById(decorationId);
-    // console.log(foundUser) // {_id: '2kj3h432kl5523h', name:'Amirah', username:'am', email:'a@a.com', password:'lskjdfklh2k3h423k4h23876823dsfk', isAdmin:false, isActive: true}
-    // console.log(foundDecoration) // {_id: '2kj3h432kl5523hsdfdsfw', name:'Kitchen', description:'this is description', price:234, img:'https://image.com' }
-    const newReservation = new ReservationModel({user:foundUser.id, decoration:foundDecoration.id, date});
+    const newReservation = new ReservationModel({user:userId, decoration:decorationId, date});
     const response = await newReservation.save();
     res.status(201).json(response);
   } catch (error) {
@@ -49,21 +39,6 @@ const addReservation = async (req, res) => {
   }
 };
 
-const updateReservation = async (req, res) => {
-  // console.log(req.body)
-  const { reservationId, userId, decorationId, date} = req.body;
-  try {
-    const foundReservation = await ReservationModel.findById(reservationId);
-    const foundUser = await UserModel.findById(userId);
-    const foundDecoration = await DecorationModel.findById(decorationId);
-    // console.log(foundUser) // {_id: '2kj3h432kl5523h', name:'Amirah', username:'am', email:'a@a.com', password:'lskjdfklh2k3h423k4h23876823dsfk', isAdmin:false, isActive: true}
-    // console.log(foundDecoration) // {_id: '2kj3h432kl5523hsdfdsfw', name:'Kitchen', description:'this is description', price:234, img:'https://image.com' }
-    const response = await ReservationModel.findByIdAndUpdate(foundReservation.id,{user:foundUser.id, decoration: foundDecoration.id, date},{new:true})
-    res.status(201).json(response);
-  } catch (error) {
-    res.send(error);
-  }
-};
 
 const deleteReservation = async (req, res)=>{
   const {id} = req.params;
@@ -77,4 +52,4 @@ const deleteReservation = async (req, res)=>{
 }
 
 
-module.exports = {getReservation, addReservation, updateReservation, deleteReservation, getUserReservation }
+module.exports = {getReservation, addReservation, deleteReservation, getUserReservation }

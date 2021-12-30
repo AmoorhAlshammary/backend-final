@@ -19,7 +19,7 @@ const login = async (req, res) => {
         // تجهيز البيانات التي ستحفظ في التوكن
         const payload = { userId: user._id, username: user.username, isAdmin: user.isAdmin};
         // تقوم بانشاء توكن : نص مشفر بالمعلومات الخاصة بالمستخدم
-    //  ينرسل التوكن لامن المستخدم يسوي تسجيل دخول 
+        //  ينرسل التوكن لامن المستخدم يسوي تسجيل دخول 
         const token = jwt.sign(payload, "ABC");
         // sending specific data to the end-user
         const toSendUser = {_id: user._id, email: user.email, isActive: user.isActive, isAdmin: user.isAdmin, likes: user.likes};
