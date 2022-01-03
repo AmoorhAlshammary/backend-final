@@ -27,7 +27,7 @@ const getOneDecoration = async (req , res)=>{
       // find the reservation of that user
       // null || reservation ={user:userId, decoration:decorationId}
       const reservation = await ReservationModel.findOne({user: req.user.userId, decoration: req.params.id});
-      console.log(reservation);
+      // console.log(reservation);
       // const oneDecoration = {name: 'amirah', price: 23 , description:'aaa' ,img:'url'}
       const oneDecoration = await DecorationModel.findById(req.params.id);
       // console.log(oneDecoration)

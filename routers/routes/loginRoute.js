@@ -1,9 +1,10 @@
 const express =require ("express")
-const loginRout= express.Router()
+const loginRoute= express.Router()
 
 const {login}=require("../controllers/login")
 
-loginRout.post("/login",login)
+// http://localhost:5000/login
+loginRoute.post("/login",login)
 
 
-module.exports=loginRout 
+module.exports=loginRoute 

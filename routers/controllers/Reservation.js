@@ -39,6 +39,16 @@ const addReservation = async (req, res) => {
   }
 };
 
+const updateReservation = async (req, res) => {
+  // console.log(req.body)
+  const { reservationId, userId, decorationId, date} = req.body;
+  try {
+    const response = await ReservationModel.findByIdAndUpdate(reservationId,{user:userId, decoration: decorationId, date},{new:true})
+    res.status(201).json(response);
+  } catch (error) {
+    res.send(error);
+  }
+};
 
 const deleteReservation = async (req, res)=>{
   const {id} = req.params;
@@ -52,4 +62,4 @@ const deleteReservation = async (req, res)=>{
 }
 
 
-module.exports = {getReservation, addReservation, deleteReservation, getUserReservation }
+module.exports = {getReservation, addReservation, updateReservation, deleteReservation, getUserReservation }
