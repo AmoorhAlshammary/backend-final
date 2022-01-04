@@ -24,7 +24,7 @@ const login = async (req, res) => {
         // sending specific data to the end-user
         const toSendUser = {_id: user._id, email: user.email, isActive: user.isActive, isAdmin: user.isAdmin, likes: user.likes};
         res.status(200).json({ token, user:toSendUser });
-      } else {// if password doesn't match
+      } else {
         res.status(403).json("wrong Password!");
       }
     } else {// if user is null

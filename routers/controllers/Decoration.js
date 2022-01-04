@@ -68,9 +68,8 @@ const deleteDecoration = async (req, res)=>{
   const {id} = req.params;
 
   try {
-    // delete all reservations 
-    await ReservationModel.deleteMany({decoration:id});
     const response = await DecorationModel.findByIdAndDelete(id);
+    console.log(response)
     res.status(201).json(response)
   } catch (error) {
     console.log(error)
