@@ -7,7 +7,8 @@ const ReservationModel = require('../../db/models/ReservationModel');
 
 
 const getDecoration = async (req , res)=>{
-  
+  console.log(req)
+
   try {
       
       // const allDecorations = [{name: 'amirah', price: 23 , description:'aaa' ,img:'url'}]
@@ -24,8 +25,7 @@ const getOneDecoration = async (req , res)=>{
     // console.log(req.params.id)
     // console.log(req.user)
   try {
-      // find the reservation of that user
-      // null || reservation ={user:userId, decoration:decorationId}
+     
       const reservation = await ReservationModel.findOne({user: req.user.userId, decoration: req.params.id});
       // console.log(reservation);
       // const oneDecoration = {name: 'amirah', price: 23 , description:'aaa' ,img:'url'}
