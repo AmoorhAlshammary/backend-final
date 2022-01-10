@@ -1,6 +1,4 @@
 
-
-
 const DecorationModel = require("../../db/models/DecorationModel")
 const ReservationModel = require('../../db/models/ReservationModel');
 

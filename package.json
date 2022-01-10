@@ -6,12 +6,12 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
-  
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mui/material": "^5.2.7",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.3",
