@@ -24,7 +24,7 @@ app.use(LoginRoute)
 
 
 
-console.log(process.env.PORT);
+//console.log(process.env.PORT);
 app.listen(process.env.PORT,()=>{
     console.log("server is running");
 });
