@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config()
 const bcrypt = require('bcrypt');
 const cors = require("cors");
 
@@ -22,7 +23,8 @@ app.use(LoginRoute)
 
 
 
-const Port = 5000;
-app.listen(Port,()=>{
-    console.log("server is running"+Port);
-})
+
+console.log(process.env.PORT);
+app.listen(process.env.PORT,()=>{
+    console.log("server is running");
+});

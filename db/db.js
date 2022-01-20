@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-mongoose.connect("mongodb+srv://amirah:123@cluster0.kqgcx.mongodb.net/Decoration?retryWrites=true&w=majority ").then(
+console.log(process.env.DB_URL);
+mongoose.connect(process.env.DB_URL).then(
   () => {
     console.log("DB connected");
   },
